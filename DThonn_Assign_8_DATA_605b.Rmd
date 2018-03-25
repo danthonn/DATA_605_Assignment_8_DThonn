@@ -1,0 +1,196 @@
+---
+title: "DATA_605_Assignment_8_DThonn"
+file: DThonn_Assign8_DATA_605
+name: Daniel Thonn
+output:
+  html_document: default
+  pdf_document: default
+course: DATA 605 CUNY MSDA program
+---
+
+** DATA_605_Assignment_8_Thonn - Random Variables  **
+
+http://rpubs.com/danthonn/373453
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+``````{r, echo=TRUE}
+# install libraries if needed
+#install.packages("permutations")
+#library(permutations)
+
+#install.packages('gtools')
+#library(gtools)
+
+```
+Assignment-8:
+11 and #14 on page 303 (chapter 7); 1 on page 320-321 (chapter 8)
+
+** Problem-Ch.7 - #11 **
+
+11. A company buys 100 lightbulbs, each of which has an exponential lifetime of 1000 hours. What is the expected time for the first of these bulbs to burn out? (See Exercise 10.)
+
+
+Answer 7-11:
+``````{r, echo=TRUE}
+# expected life for first bulbs to burn out
+
+n <- 1000
+num_bulbs <- 100
+exp_time <- n/num_bulbs
+exp_time
+# [1] 10
+
+
+```
+
+** Problem-Ch.7 - #14 **
+
+14. Assume that X1 and X2 are independent random variables, each having an
+exponential density with parameter lambda. Show that Z = X1 - X2 has density
+fZ(z) = (1/2)  lambda  e ^ (-lambda |z|)
+
+Answer 7-14:
+
+** Note: see example 7.4 in the text (Introduction to Probability (Grinstead,Snell)) **
+
+
+$$f_Z(z) = (1/2)\lambda e^{-\lambda |z|}$$
+# Sum of Two Independent Exponential Random Variables
+# See example 7.4 in text page 292. 
+
+$$f_{X}(x) = f_{Y}(x) = \begin{cases} \lambda e^{-\lambda x} & \text{if } x \geq 0 \end{cases}$$
+
+
+  
+# convolution of two exponential densities, page 293 text
+$$ fZ (z) =\int_{-\infty}^{\infty} f_{X}(z+y) f_{Y}(y) dy $$
+
+
+
+# plug in f(x) and f(y)
+
+$$ fZ (z) =\int_{z}^{0}  \lambda e - \lambda (z+y) \lambda e - \lambda (y) dy $$
+
+
+
+
+# combine and simplify
+$$ fZ (z) =\int_{z}^{0}  \lambda 2 e - \lambda |z| dy $$
+
+
+# integrate 
+
+$$f_Z(z) = \lambda 2 e^{-\lambda |z|}$$
+
+# conclusion  
+
+$$f_{X}(x) = f_{Y}(x) = \begin{cases} (1/2) \lambda e^{-\lambda x} -\lambda |z|  \end{cases}$$
+
+
+
+** Problem-Ch.8 - 1 **
+
+1. Let X be a continuous random variable with mean μ = 10 and variance
+sigma^2 = 100/3. Using Chebyshev’s Inequality, find an upper bound for the
+following probabilities.
+
+(a) P(|X − 10| >= 2).
+
+
+``````{r, echo=TRUE}
+
+variance_X <- 100/3
+sigma <- sqrt(variance_X)
+sigma
+# [1] 5.773503
+
+eps <- 2
+k <- eps/sigma
+k
+# [1] 0.3464102
+
+cheby <- pmin(1/k^2, 1)
+cheby
+## [1] 1
+
+```
+
+(b) P(|X − 10| >= 5).
+
+
+``````{r, echo=TRUE}
+
+variance_X <- 100/3
+sigma <- sqrt(variance_X)
+sigma
+# [1] 5.773503
+
+eps <- 5
+k <- eps/sigma
+k
+# [1] 0.8660254
+
+cheby <- pmin(1/k^2, 1)
+cheby
+# [1] 1
+
+```
+
+(c) P(|X − 10| >= 9).
+
+
+``````{r, echo=TRUE}
+
+variance_X <- 100/3
+sigma <- sqrt(variance_X)
+sigma
+# [1] 5.773503
+
+eps <- 9
+k <- eps/sigma
+k
+# [1] 1.558846
+
+cheby <- 1/k^2
+cheby
+# [1] 0.4115226
+
+
+```
+
+(d) P(|X − 10| >= 20).
+
+
+``````{r, echo=TRUE}
+
+variance_X <- 100/3
+sigma <- sqrt(variance_X)
+sigma
+# [1] 5.773503
+
+eps <- 20
+k <- eps/sigma
+k
+# [1] 3.464102
+
+cheby <- 1/k^2
+cheby
+# [1] 0.08333333
+
+
+```
+
+
+
+
+** END **
+
+
+``````{r, echo=TRUE}
+
+```
+
+
